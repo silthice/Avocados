@@ -50,7 +50,7 @@ struct ContentView: View {
                 } //: End of ScrollView
                 
                 //MARK: - RECIPE CARDS
-                Text("Avocado REcipes")
+                Text("Avocado Recipes")
                     .fontWeight(.bold)
                     .modifier(TitleModifier())
                 

@@ -11,6 +11,7 @@ struct RecipeCardView: View {
     
     //MARK: - PROPERTIES
     var recipe: Recipe
+    @State private var showModal: Bool = false
     
     //MARK: - BODY
     var body: some View {
@@ -50,33 +51,10 @@ struct RecipeCardView: View {
                     .italic()
                 
                 //RATES
-                HStack(alignment: .center, spacing: 5, content: {
-                    ForEach(1...recipe.rating, id: \.self) { _ in
-                        Image(systemName: "star.fill")
-                            .font(.body)
-                            .foregroundColor(.yellow)
-                    } //: End of ForEach
-                }) //: End of HStack
+                RecipeRatingView(recipe: recipe)
                
                 //COOKING
-                HStack(alignment: .center, spacing: 5, content: {
-                    HStack(alignment: .center, spacing: 2, content: {
-                        Image(systemName: "person.2")
-                        Text("Serves: \(recipe.serves)")
-                    }) //: End of HStack
-                    
-                    HStack(alignment: .center, spacing: 2, content: {
-                        Image(systemName: "clock")
-                        Text("Preps: \(recipe.preparation)")
-                    }) //: End of HStack
-                    
-                    HStack(alignment: .center, spacing: 2, content: {
-                        Image(systemName: "flame")
-                        Text("Cooking: \(recipe.cooking)")
-                    }) //: End of HStack
-                }) //: End of HStack
-                .font(.footnote)
-                .foregroundColor(.gray)
+                RecipeCookingView(recipe: recipe)
             })
             .padding()
             .padding(.bottom, 12)
@@ -86,6 +64,13 @@ struct RecipeCardView: View {
         .background(.white)
         .cornerRadius(12)
         .shadow(color: Color("ColorBlackTransparentLight"), radius: 8, x: 0, y: 0)
+        .onTapGesture {
+            hapticImpact.impactOccurred()
+            showModal = true
+        }
+        .sheet(isPresented: $showModal, content: {
+            RecipeDetailView(recipe: recipe)
+        })
     }
 }
 
