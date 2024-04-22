@@ -33,6 +33,8 @@ struct AppView: View {
         }//: TabView
         .edgesIgnoringSafeArea(.top)
         .accentColor(Color.primary)
+        
+        //test
     }
 }
 
